@@ -1,3 +1,4 @@
+// app.js is used to use express and the middlewares and defining Routes
 import express from 'express';                    
 import cors from "cors"
 import cookieParser from 'cookie-parser';

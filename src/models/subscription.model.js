@@ -1,3 +1,10 @@
+// Subscription Model Document: 
+// + ---------------------------------------------------------------------- +
+// |       Each subscription document represents a relationship:            |
+// |                                                                        |
+// |      “User A (subscriber) is subscribed to User B (channel)”           |
+// + ---------------------------------------------------------------------- +
+
 import mongoose, { Schema } from "mongoose";
 // Define the schema (blueprint) for subscriptions
 const subscriptionSchema = new Schema({
@@ -13,6 +20,8 @@ const subscriptionSchema = new Schema({
     }
 
 },{timestamps:true}) // Automatically adds createdAt and updatedAt timestamps
+
+
 
 // Create a Mongoose model based on the schema
 // "Subscriptions" → collection name in MongoDB (auto pluralized to "subscriptions")

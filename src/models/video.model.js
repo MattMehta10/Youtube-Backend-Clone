@@ -1,5 +1,8 @@
 import mongoose, { Schema } from "mongoose";
-import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";         
+//helps you easily add pagination to MongoDB aggregation pipelines (e.g., when fetching videos with filters, sorting, pages, etc.).
+
+
 const videoSchema = new Schema(
     {
         videoFile:{
@@ -33,7 +36,11 @@ const videoSchema = new Schema(
         owner:{
             type:Schema.Types.ObjectId,
             ref:"User"
-        }
+        },
+        likes:[{
+            type:Schema.Types.ObjectId,
+            ref:"User"
+        }]
 
     },{timestamps:true}
 )

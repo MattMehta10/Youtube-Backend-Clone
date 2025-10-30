@@ -6,7 +6,7 @@ import { app } from './app.js';             // to import app.js
 dotenv.config({path:'./.env'})              // configuring the env file to use the secret variables
 
 connectDB()                              // connecting the DB by calling the imported function
-.then(()=>{                              // it returns a promise so we use "then" to run the callback if successfull
+.then(()=>{                              // it returns a promise so we use "then" to run the callback if successfull connected to DB
     try{
         app.listen(process.env.PORT || 8000,()=>{                   //run the server once DB is connected
             console.log(`Server is Running on Port ${process.env.PORT}`)

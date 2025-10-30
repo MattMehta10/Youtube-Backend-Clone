@@ -17,10 +17,10 @@ const uploadonCloudinary = async (localFilePath)=>{
         //Upload file on cloudinary
         const response = await cloudinary.uploader.upload(localFilePath,{
             resource_type:"auto",       // auto-detects whether file is image, video, pdf, etc.
-        }) 
+        })
         // Once uploaded, remove the file from local storage to save space
         fs.unlinkSync(localFilePath)
-        console.log("------------------------\nresponse:\n",response,"\n\n-------------response End Here---------")
+        // console.log("------------------------\nresponse:\n",response,"\n\n-------------response End Here---------")
         return response;    // return Cloudinary's response (URL, public_id, etc.)
     }
     catch(err){

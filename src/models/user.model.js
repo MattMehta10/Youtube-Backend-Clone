@@ -10,7 +10,7 @@ const userSchema = new Schema(
             unique:true,
             lowercase:true,
             trim:true,
-            index:true
+            index:true // adds DB index for faster queries
         },
         email:{
             type:String,
@@ -26,46 +26,54 @@ const userSchema = new Schema(
             index:true
         },
         avatar:{
-            type:String,
+            type:String,    // profile picture (stored as URL, e.g., Cloudinary)
             required:true
         },
         coverImage:{
             type:String
         },
-        watchHistory:[
+        watchHistory:[      // stores a list of video IDs the user watched
             {
                 type:Schema.Types.ObjectId,
                 ref:"Video"
             }
         ],
-        password:{
+        password:{                  // encrypted password (never stored as plain text)
             type:String,
             require:[true,"Password is required"]
         },
-        refreshToken:{
+        refreshToken:{                  // stores the refresh token (used for reissuing access tokens)
             type:String
         }
-    },{timestamps:true}
+    },{timestamps:true}          // adds createdAt and updatedAt fields automatically
 )
 
+
+// Pre-save Middleware  -----------------------------------------
+
 userSchema.pre('save',async function(next){
-    if(!this.isModified('password')) return next();
+    if(!this.isModified('password')) return next(); //if the password field is not modified then skip this middleware
     // If user updates other fields (e.g., email), password won’t be re-hashed unnecessarily.
     
+    //Run on Initial password setting and everytime it's changed
     //This ensures passwords are always saved hashed (never plain text).
     this.password = await bcrypt.hash(this.password,10)
     next()
 })
-//Custom Schema Methods-----
+//---------------------------------------------------------------
+
+
+
+//Custom Schema Methods -----------------------------------------
+
 userSchema.methods.isPasswordCorrect = async function (password) {
     // Takes raw password from login form.
 
-    // Compares it with hashed password in DB.
-
+    return await bcrypt.compare(password,this.password)
+    // Compares it with hashed password in DB----↑.
     // Returns true or false.
-   return await bcrypt.compare(password,this.password)
 }
-
+//---------------------------------------------------------------
 
 
 

@@ -1,6 +1,9 @@
-// A higher-order function to handle async errors in Express
-// Instead of writing try-catch in every controller, 
-// we wrap the async function inside asyncHandler.
+/*
+A higher-order function to handle async errors in Express
+Instead of writing try-catch in every controller, 
+we wrap the async function inside asyncHandler.
+*/
+
 const asyncHandler = (requestHandler) => { return (req,res,next)=>{
     // Ensure the async function (requestHandler) always returns a Promise
         Promise.resolve(requestHandler(req,res,next))

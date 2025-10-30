@@ -1,7 +1,7 @@
-import jwt from "jsonwebtoken";
-import { ApiError } from "../utils/ApiError.js";
-import { asyncHandler } from "../utils/asyncHandler.js";
-import { User } from "../models/user.model.js";
+import jwt from "jsonwebtoken";         //For verifying and decoding JWTs.
+import { ApiError } from "../utils/ApiError.js";  //Custom error class for API errors.
+import { asyncHandler } from "../utils/asyncHandler.js";    //To catch async errors without using the try catch in every middleware
+import { User } from "../models/user.model.js";         
 
 // Middleware to verify Access Token (JWT)
 export const verifyJWT = asyncHandler(async(req,_,next)=>{
@@ -29,7 +29,7 @@ export const verifyJWT = asyncHandler(async(req,_,next)=>{
         }
     
         // 4️⃣ Attach user object to request
-        // - Now downstream routes/middlewares can access req.user
+        // - Now downstream routes/middlewares can access req.user without re-fetching the user again.
         req.user=user;
 
         // 5️⃣ Call next() to pass control to the next middleware/route
